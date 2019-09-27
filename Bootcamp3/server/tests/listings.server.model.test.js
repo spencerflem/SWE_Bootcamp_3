@@ -24,6 +24,12 @@ listing =  {
   address: "1545 W University Ave, Gainesville, FL 32603, United States"
 }
 
+testListing = {
+  code: "TEST",
+  name: "Test Listing",
+  address: "123 Test Ave, Testville, TS 12345, Testvania"
+}
+
 describe('Listing Schema Unit Tests', function() {
 
   before(function(done) {
@@ -40,6 +46,18 @@ describe('Listing Schema Unit Tests', function() {
      */
     this.timeout(10000);
 
+    it('saves the test listing', function(done){
+      new Listing({
+        name: testListing.name,
+        code: testListing.code,
+        address: testListing.address
+      }).save(function(err, listing){
+        should.not.exist(err);
+        id = listing._id;
+        done();
+      });
+    });
+    
     it('saves properly when code and name provided', function(done){
       new Listing({
         name: listing.name, 
